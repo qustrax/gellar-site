@@ -18,6 +18,8 @@
         }       
         h1 { color: #ffffff; font-weight: 300; letter-spacing: 2px; }
         .links { display: flex; flex-direction: column; gap: 15px; margin-top: 30px; }
+        
+        /* Стиль для рабочих кнопок (бирюзовый) */
         .btn {
             display: inline-block;
             padding: 12px 30px;
@@ -35,6 +37,20 @@
             color: #000000;
             box-shadow: 0 0 15px #00e5bc, 0 0 30px rgba(0, 229, 188, 0.8);
         }
+
+        /* Стиль для кнопок "скоро" (красный, неактивный) */
+        .btn-soon {
+            color: #ff4d4d;
+            border-color: #ff4d4d;
+            pointer-events: none; /* Запрещает клик */
+            cursor: not-allowed;  /* Показывает курсор "запрещено" */
+        }
+        .btn-soon:hover {
+            background-color: transparent;
+            box-shadow: none;
+            color: #ff4d4d;
+        }
+
         .status { margin-top: 40px; font-size: 0.9em; color: #888; }
     </style>
 </head>
@@ -43,14 +59,14 @@
     <p>Информационный блог и статус сервисов</p>
     
     <div class="links">
-        <!-- VAULTWARDEN # -->
+        <!-- VAULTWARDEN (Работает) -->
         <a href="https://vault.gellar.crazedns.ru" class="btn" target="_blank">хранилище паролей</a>
         
-        <!-- ОБЛАКО # -->
-        <a href="#" class="btn" target="_blank">облачное хранилище (скоро)</a>
+        <!-- ОБЛАКО (Скоро) -->
+        <a href="#" class="btn btn-soon">облачное хранилище (скоро)</a>
         
-        <!-- СБП #-->
-        <a href="#" class="btn" target="_blank">админу на кофе (скоро)</a>
+        <!-- СБП (Скоро) -->
+        <a href="#" class="btn btn-soon">админу на кофе (скоро)</a>
     </div>
 
     <div class="status">Статус систем: <span style="color: #00e5bc;">(скоро)</span></div>
