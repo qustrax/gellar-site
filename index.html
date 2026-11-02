@@ -4,10 +4,16 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>gellar.tech | Инфраструктура</title>
+    
+    <!-- Подключение шрифта PT Sans для заголовков -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=PT+Sans:wght@400;700&display=swap" rel="stylesheet">
+
     <style>
         /* --- ПЕРЕМЕННЫЕ ТЕМ --- */
         :root {
-            /* Светлая тема (по умолчанию) */
+            /* Светлая тема */
             --bg: #f4f6f8;
             --text: #333333;
             --accent: #2c3e50; /* Приглушенный темно-синий */
@@ -45,6 +51,11 @@
             height: 100vh;
             display: flex;
             overflow: hidden;
+        }
+
+        /* Применяем PT Sans к заголовкам */
+        h1, h2, h3, .card-title, .service-header h3, #page-development h1 {
+            font-family: 'PT Sans', sans-serif;
         }
 
         /* --- ИКОНКИ --- */
@@ -184,10 +195,10 @@
             font-size: 2rem;
             margin-bottom: 30px;
             color: var(--accent);
-            font-weight: 600;
+            font-weight: 700;
         }
 
-        /* --- КАРТОЧКИ НОВОСТЕЙ --- */
+        /* --- КАРТОЧКИ НОВОСТЕЙ И СТАТЕЙ --- */
         .news-grid {
             display: flex;
             flex-direction: column;
@@ -199,8 +210,15 @@
             border: 1px solid var(--border);
             border-radius: 12px;
             display: flex;
+            flex-direction: column;
             overflow: hidden;
             box-shadow: var(--shadow);
+            transition: all 0.3s ease;
+        }
+
+        .card-header {
+            display: flex;
+            cursor: pointer;
         }
 
         .card-img {
@@ -228,6 +246,7 @@
             display: flex;
             flex-direction: column;
             justify-content: center;
+            flex: 1;
         }
 
         .card-date {
@@ -240,6 +259,7 @@
             font-size: 1.2rem;
             margin-bottom: 10px;
             color: var(--text);
+            font-weight: 700;
         }
 
         .card-text {
@@ -249,6 +269,39 @@
         }
         
         body.dark-theme .card-text { color: #aaa; }
+
+        /* Скрытый полный текст статьи */
+        .card-full-text {
+            display: none;
+            padding: 0 20px 20px 20px;
+            font-size: 0.95rem;
+            line-height: 1.6;
+            color: #555;
+            border-top: 1px dashed var(--border);
+            margin-top: 10px;
+        }
+        
+        body.dark-theme .card-full-text { color: #bbb; }
+
+        .card.expanded .card-full-text {
+            display: block;
+            animation: fadeIn 0.4s ease-out;
+        }
+
+        .btn-read-more {
+            background: none;
+            border: none;
+            color: var(--accent);
+            font-weight: bold;
+            cursor: pointer;
+            padding: 10px 20px 20px 20px;
+            text-align: left;
+            font-size: 0.9rem;
+        }
+        
+        .btn-read-more:hover {
+            text-decoration: underline;
+        }
 
         /* --- СЕРВИСЫ --- */
         .services-grid {
@@ -275,6 +328,7 @@
         .service-header h3 {
             font-size: 1.1rem;
             color: var(--text);
+            font-weight: 700;
         }
 
         .status-badge {
@@ -358,6 +412,38 @@
             padding: 20px;
         }
 
+        /* Кнопка "Назад" для страницы разработки */
+        .back-btn {
+            position: absolute;
+            top: 30px;
+            left: 30px;
+            background: transparent;
+            border: 1px solid #ff5722;
+            color: #ff5722;
+            padding: 8px 16px;
+            border-radius: 8px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-family: inherit;
+            font-size: 0.9rem;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+        
+        .back-btn:hover {
+            background: rgba(255, 87, 34, 0.1);
+            box-shadow: 0 0 10px rgba(255, 87, 34, 0.3);
+        }
+
+        .back-btn svg {
+            width: 18px;
+            height: 18px;
+            stroke: #ff5722;
+            stroke-width: 2;
+        }
+
         #page-development h1 {
             color: #222;
             font-size: 3rem;
@@ -402,7 +488,7 @@
             .content {
                 padding: 20px;
             }
-            .card {
+            .card-header {
                 flex-direction: column;
             }
             .card-img {
@@ -419,6 +505,11 @@
                 background: none;
                 border: none;
                 cursor: pointer;
+            }
+            .back-btn {
+                top: 20px;
+                left: 20px;
+                padding: 6px 12px;
             }
         }
     </style>
@@ -468,9 +559,7 @@
                 <svg viewBox="0 0 24 24"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
             </button>
             <button class="theme-toggle" id="theme-toggle" onclick="toggleTheme()">
-                <!-- Иконка луны (по умолчанию для темной темы) -->
                 <svg id="icon-moon" viewBox="0 0 24 24" style="display: none;"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
-                <!-- Иконка солнца (по умолчанию для светлой темы) -->
                 <svg id="icon-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
             </button>
         </header>
@@ -487,7 +576,7 @@
                         <div class="card-content">
                             <span class="card-date">2 ноября 2026</span>
                             <h3 class="card-title">Настройка Cloudflare Tunnel</h3>
-                            <p class="card-text">Мы успешно настроили защищенный туннель для доступа к менеджеру паролей. Теперь соединение защищено, а IP-адрес сервера скрыт.</p>
+                            <p class="card-text">Я успешно настроил защищенный туннель для доступа к менеджеру паролей. Теперь соединение защищено, а IP-адрес сервера скрыт.</p>
                         </div>
                     </article>
                     
@@ -498,7 +587,7 @@
                         <div class="card-content">
                             <span class="card-date">28 октября 2026</span>
                             <h3 class="card-title">Переезд инфраструктуры</h3>
-                            <p class="card-text">Сервер Emerald полностью переведен на новую архитектуру. Обновлены правила файрвола и настройки Docker-контейнеров.</p>
+                            <p class="card-text">Сервер Emerald полностью переведен на новую архитектуру. Я обновил правила файрвола и настройки Docker-контейнеров.</p>
                         </div>
                     </article>
 
@@ -509,7 +598,7 @@
                         <div class="card-content">
                             <span class="card-date">15 октября 2026</span>
                             <h3 class="card-title">Обновление веб-сайта</h3>
-                            <p class="card-text">Портал переведен на новый дизайн с поддержкой темной темы. Благодарим всех за ожидание и поддержку проекта.</p>
+                            <p class="card-text">Портал переведен на новый дизайн с поддержкой темной темы. Благодарю всех за ожидание и поддержку проекта.</p>
                         </div>
                     </article>
                 </div>
@@ -519,32 +608,29 @@
             <section id="page-services" class="page-section">
                 <h1>Мои сервисы</h1>
                 <div class="services-grid">
-                    <!-- Vaultwarden -->
                     <div class="service-card">
                         <div class="service-header">
                             <h3>Vaultwarden</h3>
                             <span class="status-badge status-online">Онлайн</span>
                         </div>
-                        <p class="service-desc">Защищенное хранилище паролей для семьи и друзей. Ваши данные зашифрованы.</p>
+                        <p class="service-desc">Защищенное хранилище паролей для семьи и друзей. Все данные надежно зашифрованы.</p>
                         <div class="service-actions">
                             <a href="https://vault.gellar.tech" target="_blank" class="btn btn-primary">Войти</a>
                             <button class="btn btn-outline" onclick="pingService(this, 'https://vault.gellar.tech')">Пинг</button>
                         </div>
                     </div>
 
-                    <!-- Cloud Storage -->
                     <div class="service-card">
                         <div class="service-header">
                             <h3>Облачное хранилище</h3>
                             <span class="status-badge status-coming">Скоро</span>
                         </div>
-                        <p class="service-desc">Ваши файлы, фото и документы в собственной безопасной экосистеме.</p>
+                        <p class="service-desc">Файлы, фото и документы в собственной безопасной экосистеме. Проект в разработке.</p>
                         <div class="service-actions">
                             <button class="btn btn-outline" disabled style="opacity: 0.5; cursor: not-allowed;">В разработке</button>
                         </div>
                     </div>
 
-                    <!-- Minecraft -->
                     <div class="service-card">
                         <div class="service-header">
                             <h3>Minecraft Сервер</h3>
@@ -562,26 +648,47 @@
             <section id="page-articles" class="page-section">
                 <h1>Статьи и руководства</h1>
                 <div class="news-grid">
-                    <article class="card">
-                        <div class="card-img">
-                            <svg viewBox="0 0 24 24"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg>
+                    
+                    <!-- СТАТЬЯ 1 -->
+                    <article class="card" id="article-1">
+                        <div class="card-header" onclick="toggleArticle('article-1')">
+                            <div class="card-img">
+                                <svg viewBox="0 0 24 24"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg>
+                            </div>
+                            <div class="card-content">
+                                <span class="card-date">1 ноября 2026</span>
+                                <h3 class="card-title">Как я настраивал Cloudflare Tunnel</h3>
+                                <p class="card-text">Подробный разбор того, как обойти ограничения провайдера и настроить безопасный доступ к домашним сервисам без проброса портов.</p>
+                            </div>
                         </div>
-                        <div class="card-content">
-                            <span class="card-date">1 ноября 2026</span>
-                            <h3 class="card-title">Как я настраивал Cloudflare Tunnel</h3>
-                            <p class="card-text">Подробный разбор того, как обойти ограничения провайдера и настроить безопасный доступ к домашним сервисам без проброса портов.</p>
+                        <div class="card-full-text">
+                            <p>Изначально я использовал стандартный проброс портов на роутере Keenetic. Это работало, но имело два больших минуса: мой домашний IP был виден извне, а провайдер периодически блокировал входящие соединения на стандартные порты.</p>
+                            <br>
+                            <p>Решением стал Cloudflare Tunnel. Я установил утилиту <code>cloudflared</code> прямо в LXC-контейнер. Теперь туннель сам создает исходящее соединение к серверам Cloudflare, а они уже перенаправляют трафик на мой домен. Это полностью скрыло мой IP и обошло блокировки.</p>
                         </div>
+                        <button class="btn-read-more" onclick="toggleArticle('article-1')">Читать далее</button>
                     </article>
-                    <article class="card">
-                        <div class="card-img">
-                            <svg viewBox="0 0 24 24"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg>
+
+                    <!-- СТАТЬЯ 2 -->
+                    <article class="card" id="article-2">
+                        <div class="card-header" onclick="toggleArticle('article-2')">
+                            <div class="card-img">
+                                <svg viewBox="0 0 24 24"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg>
+                            </div>
+                            <div class="card-content">
+                                <span class="card-date">20 октября 2026</span>
+                                <h3 class="card-title">Переход с Paper на Fabric: Моды и оптимизация</h3>
+                                <p class="card-text">История о том, как я перевел Minecraft-сервер на Fabric, настроил Simple Voice Chat и столкнулся с проблемами при генерации чанков.</p>
+                            </div>
                         </div>
-                        <div class="card-content">
-                            <span class="card-date">20 октября 2026</span>
-                            <h3 class="card-title">Переход с Paper на Fabric: Моды и оптимизация</h3>
-                            <p class="card-text">История о том, как мы перевели Minecraft-сервер на Fabric, настроили Simple Voice Chat и столкнулись с проблемами при генерации чанков.</p>
+                        <div class="card-full-text">
+                            <p>Мой семейный сервер изначально работал на Paper. Это отличное ядро для плагинов, но оно не поддерживает моды. Когда мы захотели добавить мебель и голосовой чат, пришлось переезжать на Fabric.</p>
+                            <br>
+                            <p>Процесс оказался не самым простым. Я установил Fabric API, Simple Voice Chat, а для оптимизации — Lithium, FerriteCore и Krypton. Настоящим открытием стал мод Chunky, который позволил предгенерировать мир на 10 000 блоков и избавиться от лагов при исследовании новых территорий.</p>
                         </div>
+                        <button class="btn-read-more" onclick="toggleArticle('article-2')">Читать далее</button>
                     </article>
+
                 </div>
             </section>
 
@@ -615,6 +722,12 @@
 
             <!-- СТРАНИЦА: В РАЗРАБОТКЕ (ОСОБАЯ ТЕМА) -->
             <section id="page-development" class="page-section" style="display: none;">
+                <!-- Кнопка назад -->
+                <button class="back-btn" onclick="navigate('home')">
+                    <svg viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+                    Назад
+                </button>
+                
                 <h1>Chronicle Project</h1>
                 <div class="glitch-line"></div>
                 <p>The world is still being written.</p>
@@ -626,35 +739,44 @@
     <script>
         // --- ЛОГИКА НАВИГАЦИИ ---
         function navigate(pageId) {
-            // Скрыть все страницы
             document.querySelectorAll('.page-section').forEach(el => {
                 el.classList.remove('active');
-                el.style.display = 'none'; // Сброс inline-стилей
+                el.style.display = 'none';
             });
             
-            // Показать нужную
             const targetPage = document.getElementById('page-' + pageId);
             targetPage.classList.add('active');
             targetPage.style.display = 'block';
 
-            // Обновить активный класс в меню
             document.querySelectorAll('.nav-item').forEach(el => {
                 el.classList.remove('active');
             });
             const activeLink = document.querySelector(`.nav-item[href="#${pageId}"]`);
             if (activeLink) activeLink.classList.add('active');
 
-            // Спрятать кнопку темы на странице "В разработке"
             const themeToggle = document.getElementById('theme-toggle');
             if (pageId === 'development') {
                 themeToggle.style.display = 'none';
-                document.getElementById('page-development').style.display = 'flex'; // Force flex для центрирования
+                document.getElementById('page-development').style.display = 'flex';
             } else {
                 themeToggle.style.display = 'block';
             }
 
-            // Закрыть мобильное меню после перехода
             closeMenu();
+        }
+
+        // --- ЛОГИКА РАСКРЫТИЯ СТАТЕЙ ---
+        function toggleArticle(articleId) {
+            const card = document.getElementById(articleId);
+            const btn = card.querySelector('.btn-read-more');
+            
+            if (card.classList.contains('expanded')) {
+                card.classList.remove('expanded');
+                btn.innerText = 'Читать далее';
+            } else {
+                card.classList.add('expanded');
+                btn.innerText = 'Скрыть';
+            }
         }
 
         // --- ЛОГИКА СМЕНЫ ТЕМЫ ---
@@ -675,7 +797,6 @@
             }
         }
 
-        // Проверка сохраненной темы при загрузке
         const savedTheme = localStorage.getItem('theme');
         if (savedTheme === 'dark') {
             body.classList.add('dark-theme');
@@ -705,16 +826,15 @@
             button.disabled = true;
 
             try {
-                // Используем no-cors, так как это простой GET запрос к чужому домену
-                await new Promise(r => setTimeout(r, 800)); // Небольшая задержка для визуального эффекта
+                await new Promise(r => setTimeout(r, 800));
                 await fetch(url, { mode: 'no-cors', cache: 'no-cache' });
                 
                 button.innerText = 'Доступен';
-                button.style.color = '#10b981'; // Зеленый
+                button.style.color = '#10b981';
                 button.style.borderColor = '#10b981';
             } catch (error) {
                 button.innerText = 'Недоступен';
-                button.style.color = '#ef4444'; // Красный
+                button.style.color = '#ef4444';
                 button.style.borderColor = '#ef4444';
             }
 
@@ -726,7 +846,7 @@
             }, 3000);
         }
 
-        // Обработка хэша в URL (чтобы ссылки работали при перезагрузке страницы)
+        // Обработка хэша в URL
         function handleHash() {
             const hash = window.location.hash.replace('#', '') || 'home';
             navigate(hash);
@@ -734,16 +854,13 @@
 
         window.addEventListener('hashchange', handleHash);
         
-        // Инициализация при загрузке
         window.addEventListener('DOMContentLoaded', () => {
             handleHash();
-            // Показываем крестик для закрытия мобильного меню
             if (window.innerWidth <= 768) {
                 document.querySelector('.close-menu').style.display = 'block';
             }
         });
 
-        // Пересчет размера окна (для показа/скрытия мобильных элементов)
         window.addEventListener('resize', () => {
             const closeBtn = document.querySelector('.close-menu');
             if (window.innerWidth > 768) {
@@ -753,7 +870,6 @@
                 closeBtn.style.display = 'block';
             }
         });
-
     </script>
 </body>
 </html>
