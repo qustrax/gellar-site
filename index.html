@@ -2,7 +2,7 @@
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>gellar.tech | Инфраструктура</title>
     
     <!-- Подключение шрифта PT Sans для заголовков -->
@@ -218,16 +218,19 @@
 
         .card-header {
             display: flex;
+            flex-direction: row;
+            align-items: stretch;
+            width: 100%;
             cursor: pointer;
         }
 
         .card-img {
-            width: 200px;
+            width: 200px; /* Фиксированная ширина на десктопе */
+            flex-shrink: 0;
             background-color: #f0f0f0;
             display: flex;
             align-items: center;
             justify-content: center;
-            flex-shrink: 0;
             border-right: 1px solid var(--border);
         }
         
@@ -270,7 +273,6 @@
         
         body.dark-theme .card-text { color: #aaa; }
 
-        /* Скрытый полный текст статьи */
         .card-full-text {
             display: none;
             padding: 0 20px 20px 20px;
@@ -412,7 +414,6 @@
             padding: 20px;
         }
 
-        /* Кнопка "Назад" для страницы разработки */
         .back-btn {
             position: absolute;
             top: 30px;
@@ -469,8 +470,9 @@
             box-shadow: 0 0 10px #ff5722;
         }
 
-        /* --- МОБИЛЬНАЯ ВЕРСИЯ --- */
-        @media (max-width: 768px) {
+        /* --- МОБИЛЬНАЯ ВЕРСИЯ И ПЛАНШЕТЫ --- */
+        /* Изменили брейкпоинт с 768px на 650px, чтобы карточки дольше оставались в строку */
+        @media (max-width: 650px) {
             .sidebar {
                 position: fixed;
                 transform: translateX(-100%);
@@ -479,24 +481,43 @@
             .sidebar.open {
                 transform: translateX(0);
             }
+            
             .mobile-menu-btn {
                 display: block;
             }
+            
+            /* Опускаем топбар ниже, чтобы не мешал "челке" iPhone */
             .topbar {
-                padding: 0 20px;
+                height: auto;
+                padding-top: 45px; /* Опускаем кнопки вниз */
+                padding-bottom: 15px;
+                padding-left: 20px;
+                padding-right: 20px;
             }
+
+            /* Делаем иконки чуть крупнее для удобства нажатия */
+            .mobile-menu-btn svg, .theme-toggle svg {
+                width: 28px;
+                height: 28px;
+            }
+
             .content {
                 padding: 20px;
             }
+            
+            /* Переводим карточку в вертикальный вид */
             .card-header {
                 flex-direction: column;
             }
+            
+            /* Картинка на всю ширину и повыше */
             .card-img {
                 width: 100%;
-                height: 120px;
+                height: 180px; 
                 border-right: none;
                 border-bottom: 1px solid var(--border);
             }
+            
             .logo-area {
                 justify-content: space-between;
             }
@@ -570,35 +591,41 @@
                 <h1>Последние новости</h1>
                 <div class="news-grid">
                     <article class="card">
-                        <div class="card-img">
-                            <svg viewBox="0 0 24 24"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg>
-                        </div>
-                        <div class="card-content">
-                            <span class="card-date">2 ноября 2026</span>
-                            <h3 class="card-title">Настройка Cloudflare Tunnel</h3>
-                            <p class="card-text">Я успешно настроил защищенный туннель для доступа к менеджеру паролей. Теперь соединение защищено, а IP-адрес сервера скрыт.</p>
+                        <div class="card-header">
+                            <div class="card-img">
+                                <svg viewBox="0 0 24 24"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg>
+                            </div>
+                            <div class="card-content">
+                                <span class="card-date">2 ноября 2026</span>
+                                <h3 class="card-title">Настройка Cloudflare Tunnel</h3>
+                                <p class="card-text">Я успешно настроил защищенный туннель для доступа к менеджеру паролей. Теперь соединение защищено, а IP-адрес сервера скрыт.</p>
+                            </div>
                         </div>
                     </article>
                     
                     <article class="card">
-                        <div class="card-img">
-                            <svg viewBox="0 0 24 24"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg>
-                        </div>
-                        <div class="card-content">
-                            <span class="card-date">28 октября 2026</span>
-                            <h3 class="card-title">Переезд инфраструктуры</h3>
-                            <p class="card-text">Сервер Emerald полностью переведен на новую архитектуру. Я обновил правила файрвола и настройки Docker-контейнеров.</p>
+                        <div class="card-header">
+                            <div class="card-img">
+                                <svg viewBox="0 0 24 24"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg>
+                            </div>
+                            <div class="card-content">
+                                <span class="card-date">28 октября 2026</span>
+                                <h3 class="card-title">Переезд инфраструктуры</h3>
+                                <p class="card-text">Сервер Emerald полностью переведен на новую архитектуру. Я обновил правила файрвола и настройки Docker-контейнеров.</p>
+                            </div>
                         </div>
                     </article>
 
                     <article class="card">
-                        <div class="card-img">
-                            <svg viewBox="0 0 24 24"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg>
-                        </div>
-                        <div class="card-content">
-                            <span class="card-date">15 октября 2026</span>
-                            <h3 class="card-title">Обновление веб-сайта</h3>
-                            <p class="card-text">Портал переведен на новый дизайн с поддержкой темной темы. Благодарю всех за ожидание и поддержку проекта.</p>
+                        <div class="card-header">
+                            <div class="card-img">
+                                <svg viewBox="0 0 24 24"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg>
+                            </div>
+                            <div class="card-content">
+                                <span class="card-date">15 октября 2026</span>
+                                <h3 class="card-title">Обновление веб-сайта</h3>
+                                <p class="card-text">Портал переведен на новый дизайн с поддержкой темной темы. Благодарю всех за ожидание и поддержку проекта.</p>
+                            </div>
                         </div>
                     </article>
                 </div>
@@ -722,7 +749,6 @@
 
             <!-- СТРАНИЦА: В РАЗРАБОТКЕ (ОСОБАЯ ТЕМА) -->
             <section id="page-development" class="page-section" style="display: none;">
-                <!-- Кнопка назад -->
                 <button class="back-btn" onclick="navigate('home')">
                     <svg viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
                     Назад
@@ -814,7 +840,7 @@
         }
 
         function closeMenu() {
-            if (window.innerWidth <= 768) {
+            if (window.innerWidth <= 650) {
                 sidebar.classList.remove('open');
             }
         }
@@ -856,14 +882,14 @@
         
         window.addEventListener('DOMContentLoaded', () => {
             handleHash();
-            if (window.innerWidth <= 768) {
+            if (window.innerWidth <= 650) {
                 document.querySelector('.close-menu').style.display = 'block';
             }
         });
 
         window.addEventListener('resize', () => {
             const closeBtn = document.querySelector('.close-menu');
-            if (window.innerWidth > 768) {
+            if (window.innerWidth > 650) {
                 sidebar.classList.remove('open');
                 closeBtn.style.display = 'none';
             } else {
