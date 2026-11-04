@@ -3,9 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    <title>gellar.tech | Инфраструктура</title>
     
-    <!-- Подключение шрифта PT Sans для заголовков -->
+    <!-- SEO и Meta -->
+    <title>gellar.tech | Инфраструктура и сервисы</title>
+    <meta name="description" content="Личный блог и статус инфраструктуры. Мои сервисы, статьи о настройке Linux, Docker и сети.">
+    <meta property="og:title" content="gellar.tech | Инфраструктура и сервисы">
+    <meta property="og:description" content="Личный блог и статус инфраструктуры.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://gellar.tech/">
+    
+    <!-- RSS Лента -->
+    <link rel="alternate" type="application/rss+xml" title="gellar.tech RSS" href="/rss.xml">
+
+    <!-- Шрифты -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=PT+Sans:wght@400;700&display=swap" rel="stylesheet">
@@ -13,7 +23,6 @@
     <style>
         /* --- ПЕРЕМЕННЫЕ ТЕМ --- */
         :root {
-            /* Светлая тема */
             --bg: #f4f6f8;
             --text: #333333;
             --accent: #3f51b5; /* Индиго */
@@ -25,8 +34,7 @@
         }
 
         body.dark-theme {
-            /* Темная тема */
-            --bg: #121212; /* Очень темно-серый */
+            --bg: #121212;
             --text: #e0e0e0;
             --accent: #ff5722; /* Красно-оранжевый */
             --border: #2a2a2a;
@@ -53,7 +61,6 @@
             overflow: hidden;
         }
 
-        /* Применяем PT Sans к заголовкам */
         h1, h2, h3, .card-title, .service-header h3, #page-development h1 {
             font-family: 'PT Sans', sans-serif;
         }
@@ -225,7 +232,7 @@
         }
 
         .card-img {
-            width: 200px; /* Фиксированная ширина на десктопе */
+            width: 200px;
             flex-shrink: 0;
             background-color: #f0f0f0;
             display: flex;
@@ -252,7 +259,9 @@
             flex: 1;
         }
 
-        .card-date {
+        .card-meta {
+            display: flex;
+            justify-content: space-between;
             font-size: 0.85rem;
             color: #888;
             margin-bottom: 5px;
@@ -470,8 +479,7 @@
             box-shadow: 0 0 10px #ff5722;
         }
 
-        /* --- МОБИЛЬНАЯ ВЕРСИЯ И ПЛАНШЕТЫ --- */
-        /* Изменили брейкпоинт с 768px на 650px, чтобы карточки дольше оставались в строку */
+        /* --- МОБИЛЬНАЯ ВЕРСИЯ --- */
         @media (max-width: 650px) {
             .sidebar {
                 position: fixed;
@@ -481,43 +489,32 @@
             .sidebar.open {
                 transform: translateX(0);
             }
-            
             .mobile-menu-btn {
                 display: block;
             }
-            
-            /* Опускаем топбар ниже, чтобы не мешал "челке" iPhone */
             .topbar {
                 height: auto;
-                padding-top: 45px; /* Опускаем кнопки вниз */
+                padding-top: 45px;
                 padding-bottom: 15px;
                 padding-left: 20px;
                 padding-right: 20px;
             }
-
-            /* Делаем иконки чуть крупнее для удобства нажатия */
             .mobile-menu-btn svg, .theme-toggle svg {
                 width: 28px;
                 height: 28px;
             }
-
             .content {
                 padding: 20px;
             }
-            
-            /* Переводим карточку в вертикальный вид */
             .card-header {
                 flex-direction: column;
             }
-            
-            /* Картинка на всю ширину и повыше */
             .card-img {
                 width: 100%;
                 height: 180px; 
                 border-right: none;
                 border-bottom: 1px solid var(--border);
             }
-            
             .logo-area {
                 justify-content: space-between;
             }
@@ -541,33 +538,33 @@
     <aside class="sidebar" id="sidebar">
         <div class="logo-area">
             <div style="display: flex; align-items: center; gap: 10px;">
-                <svg viewBox="0 0 24 24">
+                <svg viewBox="0 0 24 24" aria-hidden="true">
                     <polyline points="4 17 10 11 4 5"></polyline>
                     <line x1="12" y1="19" x2="20" y2="19"></line>
                 </svg>
                 gellar.tech
             </div>
-            <button class="close-menu mobile-only" onclick="toggleMenu()" style="display: none; font-size: 1.5rem; color: var(--text);">×</button>
+            <button class="close-menu mobile-only" aria-label="Закрыть меню" onclick="toggleMenu()" style="display: none; font-size: 1.5rem; color: var(--text);">×</button>
         </div>
         <nav class="nav-links">
             <a href="#home" class="nav-item active" onclick="navigate('home')">
-                <svg viewBox="0 0 24 24"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
                 Главная
             </a>
             <a href="#services" class="nav-item" onclick="navigate('services')">
-                <svg viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect><rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect><line x1="6" y1="6" x2="6.01" y2="6"></line><line x1="6" y1="18" x2="6.01" y2="18"></line></svg>
+                <svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2" y="2" width="20" height="8" rx="2" ry="2"></rect><rect x="2" y="14" width="20" height="8" rx="2" ry="2"></rect><line x1="6" y1="6" x2="6.01" y2="6"></line><line x1="6" y1="18" x2="6.01" y2="18"></line></svg>
                 Сервисы
             </a>
             <a href="#articles" class="nav-item" onclick="navigate('articles')">
-                <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
                 Статьи
             </a>
             <a href="#plans" class="nav-item" onclick="navigate('plans')">
-                <svg viewBox="0 0 24 24"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg>
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg>
                 Планы
             </a>
             <a href="#development" class="nav-item dev-link" onclick="navigate('development')">
-                <svg viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"></path></svg>
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"></path></svg>
                 В разработке
             </a>
         </nav>
@@ -576,12 +573,12 @@
     <!-- ОСНОВНАЯ ЧАСТЬ -->
     <div class="main-wrapper">
         <header class="topbar">
-            <button class="mobile-menu-btn" onclick="toggleMenu()">
-                <svg viewBox="0 0 24 24"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
+            <button class="mobile-menu-btn" aria-label="Открыть меню" onclick="toggleMenu()">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
             </button>
-            <button class="theme-toggle" id="theme-toggle" onclick="toggleTheme()">
-                <svg id="icon-moon" viewBox="0 0 24 24" style="display: none;"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
-                <svg id="icon-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
+            <button class="theme-toggle" id="theme-toggle" aria-label="Переключить тему" onclick="toggleTheme()">
+                <svg id="icon-moon" viewBox="0 0 24 24" style="display: none;" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
+                <svg id="icon-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
             </button>
         </header>
 
@@ -593,12 +590,15 @@
                     <article class="card">
                         <div class="card-header">
                             <div class="card-img">
-                                <svg viewBox="0 0 24 24"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg>
+                                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg>
                             </div>
                             <div class="card-content">
-                                <span class="card-date">2 ноября 2026</span>
-                                <h3 class="card-title">Настройка Cloudflare Tunnel</h3>
-                                <p class="card-text">Я успешно настроил защищенный туннель для доступа к менеджеру паролей. Теперь соединение защищено, а IP-адрес сервера скрыт.</p>
+                                <div class="card-meta">
+                                    <span class="card-date">Создано: 2 ноября 2026</span>
+                                    <span>Обновлено: 2 ноября 2026</span>
+                                </div>
+                                <h3 class="card-title">Безопасный доступ к сервисам: Cloudflare Tunnel</h3>
+                                <p class="card-text">Раньше я открывал порты на роутере, но это рискованно. Теперь я настроил защищенный туннель, который скрывает мой домашний IP и делает данные пользователей неуязвимыми для атак из сети.</p>
                             </div>
                         </div>
                     </article>
@@ -606,10 +606,13 @@
                     <article class="card">
                         <div class="card-header">
                             <div class="card-img">
-                                <svg viewBox="0 0 24 24"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg>
+                                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg>
                             </div>
                             <div class="card-content">
-                                <span class="card-date">28 октября 2026</span>
+                                <div class="card-meta">
+                                    <span class="card-date">Создано: 28 октября 2026</span>
+                                    <span>Обновлено: 28 октября 2026</span>
+                                </div>
                                 <h3 class="card-title">Переезд инфраструктуры</h3>
                                 <p class="card-text">Сервер Emerald полностью переведен на новую архитектуру. Я обновил правила файрвола и настройки Docker-контейнеров.</p>
                             </div>
@@ -619,10 +622,13 @@
                     <article class="card">
                         <div class="card-header">
                             <div class="card-img">
-                                <svg viewBox="0 0 24 24"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg>
+                                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg>
                             </div>
                             <div class="card-content">
-                                <span class="card-date">15 октября 2026</span>
+                                <div class="card-meta">
+                                    <span class="card-date">Создано: 15 октября 2026</span>
+                                    <span>Обновлено: 15 октября 2026</span>
+                                </div>
                                 <h3 class="card-title">Обновление веб-сайта</h3>
                                 <p class="card-text">Портал переведен на новый дизайн с поддержкой темной темы. Благодарю всех за ожидание и поддержку проекта.</p>
                             </div>
@@ -680,18 +686,23 @@
                     <article class="card" id="article-1">
                         <div class="card-header" onclick="toggleArticle('article-1')">
                             <div class="card-img">
-                                <svg viewBox="0 0 24 24"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg>
+                                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg>
                             </div>
                             <div class="card-content">
-                                <span class="card-date">1 ноября 2026</span>
+                                <div class="card-meta">
+                                    <span class="card-date">Создано: 1 ноября 2026</span>
+                                    <span>Обновлено: 2 ноября 2026</span>
+                                </div>
                                 <h3 class="card-title">Как я настраивал Cloudflare Tunnel</h3>
-                                <p class="card-text">Подробный разбор того, как обойти ограничения провайдера и настроить безопасный доступ к домашним сервисам без проброса портов.</p>
+                                <p class="card-text">Разбираю, почему стандартный проброс портов — это дыра в безопасности, и как я настроил защищенный туннель к Vaultwarden, не открывая порты на роутере.</p>
                             </div>
                         </div>
                         <div class="card-full-text">
-                            <p>Изначально я использовал стандартный проброс портов на роутере Keenetic. Это работало, но имело два больших минуса: мой домашний IP был виден извне, а провайдер периодически блокировал входящие соединения на стандартные порты.</p>
+                            <p>Когда я только поднимал Vaultwarden, то по привычке сделал классический проброс портов на роутере. Открыл порт наружу — и заходи себе спокойно из любой точки. Работает? Работает. Но чем дольше я на это смотрел, тем меньше мне нравилось. Во-первых, мой домашний IP висел в открытом доступе, а значит, любой сканер или бот мог его увидеть и попробовать постучаться. Во-вторых, провайдер периодически резал входящие соединения на стандартные порты, и сервис отваливался в самый неподходящий момент. Для хранилища паролей, где лежат данные семьи и друзей, это как-то совсем не вдохновляло.</p>
                             <br>
-                            <p>Решением стал Cloudflare Tunnel. Я установил утилиту <code>cloudflared</code> прямо в LXC-контейнер. Теперь туннель сам создает исходящее соединение к серверам Cloudflare, а они уже перенаправляют трафик на мой домен. Это полностью скрыло мой IP и обошло блокировки.</p>
+                            <p>Решение нашлось в виде Cloudflare Tunnel. Я поставил утилиту <code>cloudflared</code> прямо в LXC-контейнер с Vaultwarden, и вся логика перевернулась. Теперь никто не стучится в мой роутер снаружи. Наоборот — сам туннель устанавливает зашифрованное исходящее соединение к серверам Cloudflare. Когда кто-то из друзей открывает <code>vault.gellar.tech</code>, запрос сначала приходит на Cloudflare, а оттуда по уже установленному туннелю уходит в мой контейнер. Для внешнего мира моего домашнего IP просто не существует.</p>
+                            <br>
+                            <p>Что это дало на практике? Роутер больше не принимает входящих подключений из интернета — атаковать по сути нечего. DDoS-атаки и массовые сканеры отсекаются на уровне Cloudflare и до меня даже не долетают. А главное — это безопасность пользователей. Трафик шифруется, а сам Vaultwarden работает по принципу zero-knowledge, то есть даже я как администратор сервера не вижу чужих паролей. Я настроил туннель не для того, чтобы похвастаться красивой схемой на картинке, а чтобы мои друзья могли спать спокойно и не переживать, что их данные где-то утекут. На мой взгляд, это минимальный уровень ответственности, если ты держишь чужие секреты у себя на сервере.</p>
                         </div>
                         <button class="btn-read-more" onclick="toggleArticle('article-1')">Читать далее</button>
                     </article>
@@ -700,18 +711,23 @@
                     <article class="card" id="article-2">
                         <div class="card-header" onclick="toggleArticle('article-2')">
                             <div class="card-img">
-                                <svg viewBox="0 0 24 24"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg>
+                                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg>
                             </div>
                             <div class="card-content">
-                                <span class="card-date">20 октября 2026</span>
+                                <div class="card-meta">
+                                    <span class="card-date">Создано: 20 октября 2026</span>
+                                    <span>Обновлено: 20 октября 2026</span>
+                                </div>
                                 <h3 class="card-title">Переход с Paper на Fabric: Моды и оптимизация</h3>
-                                <p class="card-text">История о том, как я перевел Minecraft-сервер на Fabric, настроил Simple Voice Chat и столкнулся с проблемами при генерации чанков.</p>
+                                <p class="card-text">Как я перевел Minecraft-сервер на Fabric, чтобы добавить голосовой чат и мебель, и почему предгенерация мира спасла нас от лагов.</p>
                             </div>
                         </div>
                         <div class="card-full-text">
-                            <p>Мой семейный сервер изначально работал на Paper. Это отличное ядро для плагинов, но оно не поддерживает моды. Когда мы захотели добавить мебель и голосовой чат, пришлось переезжать на Fabric.</p>
+                            <p>Изначально мой семейный сервер работал на Paper. Это отличное ядро, которое дает кучу возможностей через плагины, но у него есть один большой минус — оно не поддерживает моды. Нам с друзьями в какой-то момент захотелось добавить в игру голосовой чат прямо из коробки и всякие декоративные штуки вроде красивой мебели и новых дверей. С плагинами такого разнообразия не добиться, поэтому я решил перевести сервер на Fabric.</p>
                             <br>
-                            <p>Процесс оказался не самым простым. Я установил Fabric API, Simple Voice Chat, а для оптимизации — Lithium, FerriteCore и Krypton. Настоящим открытием стал мод Chunky, который позволил предгенерировать мир на 10 000 блоков и избавиться от лагов при исследовании новых территорий.</p>
+                            <p>Тут я наступил на классические грабли. В отличие от плагинов, моды, которые добавляют новые блоки, должны быть установлены не только на сервере, но и у каждого игрока в клиенте. Когда кто-то заходил без нужного мода, его просто выкидывало с ошибкой <code>Missing element</code> — игра не понимала, что за блоки ей присылают. Пришлось вручную собирать список зависимостей (Fabric API, Cloth Config, PuzzlesLib) и раздавать его друзьям, чтобы у всех был одинаковый набор. Зато после этого мы получили голосовой чат и ту самую мебель.</p>
+                            <br>
+                            <p>Но когда мир разросся, сервер начал подтормаживать при исследовании новых территорий. Я установил моды оптимизации — Lithium, FerriteCore и Krypton, которые снизили нагрузку на процессор и память. А настоящим спасением стал мод Chunky. Я запустил предгенерацию мира на 10 000 блоков вокруг спавна, и он за пару часов создал все чанки заранее. Теперь, когда мы идем в новые земли, серверу не нужно генерировать их на лету — он просто читает готовые данные с диска. Лаги практически исчезли, а игра стала гораздо плавнее.</p>
                         </div>
                         <button class="btn-read-more" onclick="toggleArticle('article-2')">Читать далее</button>
                     </article>
@@ -749,8 +765,8 @@
 
             <!-- СТРАНИЦА: В РАЗРАБОТКЕ (ОСОБАЯ ТЕМА) -->
             <section id="page-development" class="page-section" style="display: none;">
-                <button class="back-btn" onclick="navigate('home')">
-                    <svg viewBox="0 0 24 24"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
+                <button class="back-btn" aria-label="Вернуться на главную" onclick="navigate('home')">
+                    <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
                     Назад
                 </button>
                 
@@ -771,8 +787,10 @@
             });
             
             const targetPage = document.getElementById('page-' + pageId);
-            targetPage.classList.add('active');
-            targetPage.style.display = 'block';
+            if(targetPage) {
+                targetPage.classList.add('active');
+                targetPage.style.display = 'block';
+            }
 
             document.querySelectorAll('.nav-item').forEach(el => {
                 el.classList.remove('active');
@@ -791,17 +809,25 @@
             closeMenu();
         }
 
-        // --- ЛОГИКА РАСКРЫТИЯ СТАТЕЙ ---
-        function toggleArticle(articleId) {
+        // --- ЛОГИКА РАСКРЫТИЯ СТАТЕЙ (с поддержкой URL) ---
+        function toggleArticle(articleId, forceOpen = false) {
             const card = document.getElementById(articleId);
+            if (!card) return;
+            
             const btn = card.querySelector('.btn-read-more');
             
-            if (card.classList.contains('expanded')) {
+            if (card.classList.contains('expanded') && !forceOpen) {
                 card.classList.remove('expanded');
                 btn.innerText = 'Читать далее';
+                // Очищаем хэш, если закрыли статью
+                if(window.location.hash === '#' + articleId) {
+                    history.replaceState(null, null, window.location.pathname);
+                }
             } else {
                 card.classList.add('expanded');
                 btn.innerText = 'Скрыть';
+                // Обновляем URL без перезагрузки страницы
+                history.replaceState(null, null, '#' + articleId);
             }
         }
 
@@ -810,26 +836,32 @@
         const iconMoon = document.getElementById('icon-moon');
         const iconSun = document.getElementById('icon-sun');
 
-        function toggleTheme() {
-            body.classList.toggle('dark-theme');
-            if (body.classList.contains('dark-theme')) {
+        function applyTheme(isDark) {
+            if (isDark) {
+                body.classList.add('dark-theme');
                 iconSun.style.display = 'none';
                 iconMoon.style.display = 'block';
-                localStorage.setItem('theme', 'dark');
             } else {
+                body.classList.remove('dark-theme');
                 iconMoon.style.display = 'none';
                 iconSun.style.display = 'block';
-                localStorage.setItem('theme', 'light');
             }
         }
 
+        function toggleTheme() {
+            const isDark = !body.classList.contains('dark-theme');
+            applyTheme(isDark);
+            localStorage.setItem('theme', isDark ? 'dark' : 'light');
+        }
+
+        // Инициализация темы (с учетом системных настроек)
         const savedTheme = localStorage.getItem('theme');
-        if (savedTheme === 'dark') {
-            body.classList.add('dark-theme');
-            iconSun.style.display = 'none';
-            iconMoon.style.display = 'block';
+        if (savedTheme) {
+            applyTheme(savedTheme === 'dark');
         } else {
-            iconMoon.style.display = 'none';
+            // Если пользователь не выбирал, смотрим на систему
+            const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+            applyTheme(prefersDark);
         }
 
         // --- ЛОГИКА МОБИЛЬНОГО МЕНЮ ---
@@ -872,10 +904,18 @@
             }, 3000);
         }
 
-        // Обработка хэша в URL
+        // --- ОБРАБОТКА URL (ХЭША) ---
         function handleHash() {
             const hash = window.location.hash.replace('#', '') || 'home';
-            navigate(hash);
+            
+            // Если хэш указывает на статью
+            if (hash.startsWith('article-')) {
+                navigate('articles');
+                // Небольшая задержка, чтобы страница успела отрисоваться
+                setTimeout(() => toggleArticle(hash, true), 50);
+            } else {
+                navigate(hash);
+            }
         }
 
         window.addEventListener('hashchange', handleHash);
