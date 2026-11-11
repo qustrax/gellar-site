@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-    
+
     <!-- SEO и Meta -->
     <title>gellar.tech | Инфраструктура и сервисы</title>
     <meta name="description" content="Личный блог и статус инфраструктуры. Мои сервисы, статьи о настройке Linux, Docker и сети.">
@@ -11,7 +11,7 @@
     <meta property="og:description" content="Личный блог и статус инфраструктуры.">
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://gellar.tech/">
-    
+
     <!-- RSS Лента -->
     <link rel="alternate" type="application/rss+xml" title="gellar.tech RSS" href="/rss.xml">
 
@@ -31,6 +31,9 @@
             --sidebar-bg: #ffffff;
             --hover-bg: #f0f4f8;
             --shadow: 0 4px 6px rgba(0,0,0,0.05);
+            --text-muted: #595959;          /* 7.0:1 на #fff */
+            --btn-disabled-text: #595959;
+            --btn-disabled-border: #8a8a8a;
         }
 
         body.dark-theme {
@@ -42,6 +45,9 @@
             --sidebar-bg: #1a1a1a;
             --hover-bg: #2a2a2a;
             --shadow: 0 4px 6px rgba(0,0,0,0.3);
+            --text-muted: #b0b0b0;          /* 7.7:1 на #1e1e1e */
+            --btn-disabled-text: #b0b0b0;
+            --btn-disabled-border: #6b6b6b;
         }
 
         /* --- БАЗОВЫЕ СТИЛИ --- */
@@ -61,8 +67,67 @@
             overflow: hidden;
         }
 
-        h1, h2, h3, .card-title, .service-header h3, #page-development h1 {
+        h1, h2, h3, .card-title, .service-header h2, #page-development h1 {
             font-family: 'PT Sans', sans-serif;
+        }
+
+        /* --- SKIP LINK --- */
+        .skip-link {
+            position: absolute;
+            top: -100px;
+            left: 10px;
+            background: var(--accent);
+            color: #fff;
+            padding: 10px 16px;
+            border-radius: 0 0 8px 8px;
+            z-index: 10000;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .skip-link:focus { top: 0; }
+        body.dark-theme .skip-link { color: #000; }
+
+        /* --- VISUALLY HIDDEN --- */
+        .sr-only {
+            position: absolute;
+            width: 1px; height: 1px;
+            padding: 0; margin: -1px;
+            overflow: hidden;
+            clip: rect(0,0,0,0);
+            white-space: nowrap;
+            border: 0;
+        }
+
+        /* --- FOCUS VISIBLE --- */
+        :focus:not(:focus-visible) { outline: none; }
+
+        :focus-visible {
+            outline: 3px solid var(--accent);
+            outline-offset: 2px;
+            border-radius: 4px;
+        }
+
+        .nav-item:focus-visible,
+        .btn:focus-visible,
+        .btn-read-more:focus-visible,
+        .theme-toggle:focus-visible,
+        .mobile-menu-btn:focus-visible,
+        .back-btn:focus-visible,
+        .skip-link:focus-visible,
+        .card-header:focus-visible {
+            outline: 3px solid var(--accent);
+            outline-offset: 2px;
+            box-shadow: 0 0 0 5px rgba(63, 81, 181, 0.25);
+        }
+        body.dark-theme .nav-item:focus-visible,
+        body.dark-theme .btn:focus-visible,
+        body.dark-theme .btn-read-more:focus-visible,
+        body.dark-theme .theme-toggle:focus-visible,
+        body.dark-theme .mobile-menu-btn:focus-visible,
+        body.dark-theme .back-btn:focus-visible,
+        body.dark-theme .skip-link:focus-visible,
+        body.dark-theme .card-header:focus-visible {
+            box-shadow: 0 0 0 5px rgba(255, 87, 34, 0.3);
         }
 
         /* --- ИКОНКИ --- */
@@ -130,7 +195,7 @@
             background-color: var(--hover-bg);
             color: var(--accent);
         }
-        
+
         .nav-item.active svg, .nav-item:hover svg {
             stroke: var(--accent);
         }
@@ -163,6 +228,8 @@
             border: none;
             cursor: pointer;
             margin-right: auto;
+            padding: 8px;
+            margin-left: -8px;
         }
         .mobile-menu-btn svg { width: 24px; height: 24px; }
 
@@ -180,6 +247,7 @@
             padding: 40px;
             overflow-y: auto;
         }
+        .content:focus { outline: none; }
 
         /* --- СТРАНИЦЫ --- */
         .page-section {
@@ -204,6 +272,7 @@
             color: var(--accent);
             font-weight: 700;
         }
+        h1:focus { outline: none; }
 
         /* --- КАРТОЧКИ НОВОСТЕЙ И СТАТЕЙ --- */
         .news-grid {
@@ -240,7 +309,7 @@
             justify-content: center;
             border-right: 1px solid var(--border);
         }
-        
+
         body.dark-theme .card-img {
             background-color: #2a2a2a;
         }
@@ -263,7 +332,7 @@
             display: flex;
             justify-content: space-between;
             font-size: 0.85rem;
-            color: #888;
+            color: var(--text-muted);
             margin-bottom: 5px;
         }
 
@@ -279,7 +348,7 @@
             line-height: 1.5;
             color: #666;
         }
-        
+
         body.dark-theme .card-text { color: #aaa; }
 
         .card-full-text {
@@ -291,7 +360,7 @@
             border-top: 1px dashed var(--border);
             margin-top: 10px;
         }
-        
+
         body.dark-theme .card-full-text { color: #bbb; }
 
         .card.expanded .card-full-text {
@@ -309,7 +378,7 @@
             text-align: left;
             font-size: 0.9rem;
         }
-        
+
         .btn-read-more:hover {
             text-decoration: underline;
         }
@@ -336,7 +405,7 @@
             margin-bottom: 10px;
         }
 
-        .service-header h3 {
+        .service-header h2 {
             font-size: 1.1rem;
             color: var(--text);
             font-weight: 700;
@@ -352,10 +421,10 @@
         .status-online { background-color: #dcfce7; color: #166534; }
         .status-coming { background-color: #fef9c3; color: #854d0e; }
         .status-dev { background-color: #fee2e2; color: #991b1b; }
-        
-        body.dark-theme .status-online { background-color: #065f46; color: #34d399; }
+
+        body.dark-theme .status-online { background-color: #064e3b; color: #34d399; }
         body.dark-theme .status-coming { background-color: #78350f; color: #fbbf24; }
-        body.dark-theme .status-dev { background-color: #7f1d1d; color: #f87171; }
+        body.dark-theme .status-dev { background-color: #7f1d1d; color: #fca5a5; }
 
         .service-desc {
             font-size: 0.9rem;
@@ -389,7 +458,7 @@
         .btn-primary:hover {
             filter: brightness(1.2);
         }
-        
+
         body.dark-theme .btn-primary {
             color: #000;
         }
@@ -403,6 +472,23 @@
         .btn-outline:hover {
             background-color: var(--accent);
             color: #fff;
+        }
+
+        /* Неактивные кнопки: явные цвета, без opacity 0.5 */
+        .btn[disabled],
+        .btn[aria-disabled="true"] {
+            background-color: transparent;
+            color: var(--btn-disabled-text);
+            border-color: var(--btn-disabled-border);
+            cursor: not-allowed;
+            opacity: 1;
+        }
+        .btn[disabled]:hover,
+        .btn[aria-disabled="true"]:hover {
+            background-color: transparent;
+            color: var(--btn-disabled-text);
+            border-color: var(--btn-disabled-border);
+            filter: none;
         }
 
         /* --- СПЕЦ. СТРАНИЦА "В РАЗРАБОТКЕ" --- */
@@ -441,7 +527,7 @@
             font-weight: bold;
             transition: all 0.3s;
         }
-        
+
         .back-btn:hover {
             background: rgba(255, 87, 34, 0.1);
             box-shadow: 0 0 10px rgba(255, 87, 34, 0.3);
@@ -469,7 +555,7 @@
             max-width: 600px;
             line-height: 1.6;
         }
-        
+
         #page-development .glitch-line {
             width: 100px;
             height: 2px;
@@ -485,9 +571,13 @@
                 position: fixed;
                 transform: translateX(-100%);
                 box-shadow: 2px 0 10px rgba(0,0,0,0.1);
+                visibility: hidden;
+                transition: transform 0.3s ease, visibility 0s linear 0.3s;
             }
             .sidebar.open {
                 transform: translateX(0);
+                visibility: visible;
+                transition: transform 0.3s ease, visibility 0s linear 0s;
             }
             .mobile-menu-btn {
                 display: block;
@@ -511,7 +601,7 @@
             }
             .card-img {
                 width: 100%;
-                height: 180px; 
+                height: 180px;
                 border-right: none;
                 border-bottom: 1px solid var(--border);
             }
@@ -523,6 +613,9 @@
                 background: none;
                 border: none;
                 cursor: pointer;
+                font-size: 1.5rem;
+                color: var(--text);
+                padding: 6px 10px;
             }
             .back-btn {
                 top: 20px;
@@ -534,6 +627,8 @@
 </head>
 <body>
 
+    <a href="#main-content" class="skip-link">Перейти к основному содержимому</a>
+
     <!-- БОКОВОЕ МЕНЮ -->
     <aside class="sidebar" id="sidebar">
         <div class="logo-area">
@@ -544,9 +639,9 @@
                 </svg>
                 gellar.tech
             </div>
-            <button class="close-menu mobile-only" aria-label="Закрыть меню" onclick="toggleMenu()" style="display: none; font-size: 1.5rem; color: var(--text);">×</button>
+            <button class="close-menu mobile-only" aria-label="Закрыть меню" onclick="toggleMenu(false)" style="display: none;">×</button>
         </div>
-        <nav class="nav-links">
+        <nav class="nav-links" aria-label="Основная навигация">
             <a href="#home" class="nav-item active" onclick="navigate('home')">
                 <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
                 Главная
@@ -573,16 +668,23 @@
     <!-- ОСНОВНАЯ ЧАСТЬ -->
     <div class="main-wrapper">
         <header class="topbar">
-            <button class="mobile-menu-btn" aria-label="Открыть меню" onclick="toggleMenu()">
+            <button class="mobile-menu-btn" id="menu-toggle"
+                    aria-label="Открыть меню"
+                    aria-expanded="false"
+                    aria-controls="sidebar"
+                    onclick="toggleMenu()">
                 <svg viewBox="0 0 24 24" aria-hidden="true"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg>
             </button>
-            <button class="theme-toggle" id="theme-toggle" aria-label="Переключить тему" onclick="toggleTheme()">
+            <button class="theme-toggle" id="theme-toggle"
+                    aria-label="Тёмная тема"
+                    aria-pressed="false"
+                    onclick="toggleTheme()">
                 <svg id="icon-moon" viewBox="0 0 24 24" style="display: none;" aria-hidden="true"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path></svg>
                 <svg id="icon-sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="5"></circle><line x1="12" y1="1" x2="12" y2="3"></line><line x1="12" y1="21" x2="12" y2="23"></line><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line><line x1="1" y1="12" x2="3" y2="12"></line><line x1="21" y1="12" x2="23" y2="12"></line><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line></svg>
             </button>
         </header>
 
-        <main class="content">
+        <main class="content" id="main-content" tabindex="-1">
             <!-- СТРАНИЦА: ГЛАВНАЯ -->
             <section id="page-home" class="page-section active">
                 <h1>Последние новости</h1>
@@ -597,12 +699,12 @@
                                     <span class="card-date">Создано: 2 ноября 2026</span>
                                     <span>Обновлено: 2 ноября 2026</span>
                                 </div>
-                                <h3 class="card-title">Безопасный доступ к сервисам: Cloudflare Tunnel</h3>
+                                <h2 class="card-title">Безопасный доступ к сервисам: Cloudflare Tunnel</h2>
                                 <p class="card-text">Раньше я открывал порты на роутере, но это рискованно. Теперь я настроил защищенный туннель, который скрывает мой домашний IP и делает данные пользователей неуязвимыми для атак из сети.</p>
                             </div>
                         </div>
                     </article>
-                    
+
                     <article class="card">
                         <div class="card-header">
                             <div class="card-img">
@@ -613,7 +715,7 @@
                                     <span class="card-date">Создано: 28 октября 2026</span>
                                     <span>Обновлено: 28 октября 2026</span>
                                 </div>
-                                <h3 class="card-title">Переезд инфраструктуры</h3>
+                                <h2 class="card-title">Переезд инфраструктуры</h2>
                                 <p class="card-text">Для повышения производительности и скорости работы, основной сервер полностью переведен на новую архитектуру. Я обновил правила файервола и настройки Docker-контейнеров. Невидимо но важно</p>
                             </div>
                         </div>
@@ -629,7 +731,7 @@
                                     <span class="card-date">Создано: 15 октября 2026</span>
                                     <span>Обновлено: 15 октября 2026</span>
                                 </div>
-                                <h3 class="card-title">Обновление веб-сайта</h3>
+                                <h2 class="card-title">Обновление веб-сайта</h2>
                                 <p class="card-text">Портал переведен на новый дизайн с поддержкой темной темы. Спасибо за ожидание и поддержку. Дизайн еще не финальный, руками довожу до ума и оживляю</p>
                             </div>
                         </div>
@@ -643,46 +745,52 @@
                 <div class="services-grid">
                     <div class="service-card">
                         <div class="service-header">
-                            <h3>Vaultwarden</h3>
+                            <h2>Vaultwarden</h2>
                             <span class="status-badge status-online">Онлайн</span>
                         </div>
                         <p class="service-desc">Защищенное хранилище паролей для семьи и друзей. Все данные надежно зашифрованы.</p>
                         <div class="service-actions">
-                            <a href="https://vault.gellar.tech" target="_blank" class="btn btn-primary">Войти</a>
+                            <a href="https://vault.gellar.tech" target="_blank" rel="noopener" class="btn btn-primary">Войти</a>
                             <button class="btn btn-outline" onclick="pingService(this, 'https://vault.gellar.tech')">Пинг</button>
                         </div>
                     </div>
 
                     <div class="service-card">
                         <div class="service-header">
-                            <h3>Облачное хранилище</h3>
+                            <h2>Облачное хранилище</h2>
                             <span class="status-badge status-coming">Скоро</span>
                         </div>
                         <p class="service-desc">Файлы, фото и документы в собственной безопасной экосистеме. Проект в разработке.</p>
                         <div class="service-actions">
-                            <button class="btn btn-outline" disabled style="opacity: 0.5; cursor: not-allowed;">В разработке</button>
+                            <button class="btn btn-outline" disabled aria-disabled="true">
+                                В разработке<span class="sr-only"> — сервис пока недоступен</span>
+                            </button>
                         </div>
                     </div>
 
                     <div class="service-card">
                         <div class="service-header">
-                            <h3>PDF to инструмент</h3>
+                            <h2>PDF to инструмент</h2>
                             <span class="status-badge status-coming">Скоро</span>
                         </div>
                         <p class="service-desc">набор инструментов для работы с PDF-файлами, без сбора и слива данных куда-либо. Идеально для работы с личными документами и важными бумагами</p>
                         <div class="service-actions">
-                            <button class="btn btn-outline" disabled style="opacity: 0.5; cursor: not-allowed;">В разработке</button>
+                            <button class="btn btn-outline" disabled aria-disabled="true">
+                                В разработке<span class="sr-only"> — инструмент пока недоступен</span>
+                            </button>
                         </div>
                     </div>
 
                     <div class="service-card">
                         <div class="service-header">
-                            <h3>Minecraft Сервер</h3>
+                            <h2>Minecraft Сервер</h2>
                             <span class="status-badge status-dev">Заморожен</span>
                         </div>
                         <p class="service-desc">Уютный мир для друзей. На данный момент проект временно приостановлен.</p>
                         <div class="service-actions">
-                            <button class="btn btn-outline" disabled style="opacity: 0.5; cursor: not-allowed;">Недоступен</button>
+                            <button class="btn btn-outline" disabled aria-disabled="true">
+                                Недоступен<span class="sr-only"> — сервер временно приостановлен</span>
+                            </button>
                         </div>
                     </div>
                 </div>
@@ -692,10 +800,14 @@
             <section id="page-articles" class="page-section">
                 <h1>Статьи и руководства</h1>
                 <div class="news-grid">
-                    
+
                     <!-- СТАТЬЯ 1 -->
                     <article class="card" id="article-1">
-                        <div class="card-header" onclick="toggleArticle('article-1')">
+                        <div class="card-header"
+                             role="button" tabindex="0"
+                             aria-expanded="false" aria-controls="article-1-full"
+                             onclick="toggleArticle('article-1')"
+                             onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleArticle('article-1');}">
                             <div class="card-img">
                                 <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg>
                             </div>
@@ -704,18 +816,61 @@
                                     <span class="card-date">Создано: 1 ноября 2026</span>
                                     <span>Обновлено: 2 ноября 2026</span>
                                 </div>
-                                <h3 class="card-title">Как я настраивал Cloudflare Tunnel</h3>
+                                <h2 class="card-title">Как я настраивал Cloudflare Tunnel</h2>
                                 <p class="card-text">Разбираю, почему стандартный проброс портов - это дыра в безопасности, и как я настроил защищенный туннель к Vaultwarden, не открывая порты на роутере.</p>
                             </div>
                         </div>
-                        <div class="card-full-text">
+                        <div class="card-full-text" id="article-1-full">
                             <p>Когда я только поднимал Vaultwarden, то по привычке сделал классический проброс портов на роутере. Открыл порт наружу - и заходи себе спокойно из любой точки. Работает? Работает. Но чем дольше я на это смотрел, тем меньше мне нравилось. Во-первых, мой домашний IP висел в открытом доступе, а значит, любой сканер или бот мог его увидеть и попробовать постучаться. Во-вторых, провайдер периодически резал входящие соединения на стандартные порты, и сервис отваливался в самый неподходящий момент. Для хранилища паролей, где лежат данные семьи и друзей, это как-то совсем не вдохновляло.</p>
                             <br>
                             <p>Решение нашлось в виде Cloudflare Tunnel. Я поставил утилиту <code>cloudflared</code> прямо в LXC-контейнер с Vaultwarden, и вся логика перевернулась. Теперь никто не стучится в мой роутер снаружи. Наоборот - сам туннель устанавливает зашифрованное исходящее соединение к серверам Cloudflare. Когда кто-то из друзей открывает <code>vault.gellar.tech</code>, запрос сначала приходит на Cloudflare, а оттуда по уже установленному туннелю уходит в мой контейнер. Для внешнего мира моего домашнего IP просто не существует.</p>
                             <br>
                             <p>Что это дало на практике? Роутер больше не принимает входящих подключений из интернета - атаковать по сути нечего. DDoS-атаки и массовые сканеры отсекаются на уровне Cloudflare и до меня даже не долетают. А главное - это безопасность пользователей. Трафик шифруется, а сам Vaultwarden работает по принципу zero-knowledge, то есть даже я как администратор сервера не вижу чужих паролей. Я настроил туннель не для того, чтобы похвастаться красивой схемой на картинке, а чтобы мои друзья могли спать спокойно и не переживать, что их данные где-то утекут. На мой взгляд, это минимальный уровень ответственности, если ты держишь чужие секреты у себя на сервере.</p>
                         </div>
-                        <button class="btn-read-more" onclick="toggleArticle('article-1')">Читать далее</button>
+                        <button class="btn-read-more"
+                                aria-expanded="false" aria-controls="article-1-full"
+                                onclick="toggleArticle('article-1')">Читать далее</button>
+                    </article>
+
+                    <!-- СТАТЬЯ 2 -->
+                    <article class="card" id="article-2">
+                        <div class="card-header"
+                             role="button" tabindex="0"
+                             aria-expanded="false" aria-controls="article-2-full"
+                             onclick="toggleArticle('article-2')"
+                             onkeydown="if(event.key==='Enter'||event.key===' '){event.preventDefault();toggleArticle('article-2');}">
+                            <div class="card-img">
+                                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path><circle cx="12" cy="13" r="4"></circle></svg>
+                            </div>
+                            <div class="card-content">
+                                <div class="card-meta">
+                                    <span class="card-date">Создано: 9 ноября 2026</span>
+                                    <span>Обновлено: 9 ноября 2026</span>
+                                </div>
+                                <h2 class="card-title">Почему падают большие хостинги: разбор аварий</h2>
+                                <p class="card-text">Собрал в кучу несколько аварий у крупных хостеров за последние месяцы. Не для того, чтобы напугать, а потому что по ним хорошо видно, как именно инфраструктура ломается — и почему «у нас всё забэкаплено» не всегда спасает.</p>
+                            </div>
+                        </div>
+                        <div class="card-full-text" id="article-2-full">
+                            <p>Начну с ESTT. Восьмого ноября у них был сбой, который сначала выглядел как обычная техническая авария, но на следующий день компания назвала причину в соц. сетях: шифровальщик. Тут важнее не сам факт атаки, а то, что именно зашифровали. Пострадали не отдельные клиентские серверы, а кластеры виртуализации и системы управления облаком. Простыми словами: данные клиентов могли лежать на дисках целыми, но пропала «диспетчерская», которая знает, где эти данные находятся и как к ним подключиться. Поэтому виртуальные машины и сайты стали недоступны, хотя физически железо никуда не исчезло. Выделенные физические серверы, которые не зависят от этого слоя управления, при этом продолжали работать. К девятому ноября инженеры подняли примерно 90% клиентских виртуальных серверов, но личный кабинет и сайт провайдера ещё какое-то время были недоступны. Точных сроков полного восстановления никто не называл. Признаков утечки данных вроде бы не нашли — шифровальщик здесь сработал скорее как выключатель доступности, а не как способ украсть информацию.</p>
+                            <br>
+                            <p>Похожая история, но с другим уклоном, была у белорусского ActiveCloud. Десятого ноября они сообщили о массированной кибератаке на инфраструктуру. Сайт провайдера не открывался, не работали чаты, телефония и тикетная система в личных кабинетах. То есть проблема была не только в клиентских серверах, но и в каналах, через которые клиенты вообще могут связаться с провайдером. Это довольно неприятный момент: когда что-то падает, тебе в первую очередь нужна поддержка, а именно её в этот момент и нет. Какие конкретно внутренние сервисы пострадали, публично особо не раскрывали. Снаружи было видно одно: привычный канал связи с провайдером временно исчез, и клиентам оставалось только ждать.</p>
+                            <br>
+                            <p>У Reg.ru в августе была другая ситуация. Пользователи по всей России жаловались, что не открываются сайты, маркетплейсы, соцсети и банковские приложения. Карта сбоев была почти на всю страну. При этом сам Reg.ru сразу сказал, что проблема не в их внутренней инфраструктуре, а в перебоях с электричеством на крупном узле связи. Речь шла про ММТС-9 в Москве — станцию, через которую завязано много всего в Рунете. Судя по характеру проблем, мог барахлить DNS: это штука, которая превращает понятный адрес сайта в IP-адрес сервера. Если этот слой перестаёт отвечать, сайт становится недоступен, даже если сам сервер с данными жив и работает. Восстановление здесь зависело не от инженеров хостинга, а от энергетиков. Как только питание на узле связи вернули в норму, доступность начала восстанавливаться. Это хороший пример того, что твой сервис может быть полностью исправен, но всё равно лежать из-за чужой аварии на несколько уровней выше.</p>
+                            <br>
+                            <p>С Yandex Cloud история немного другая, но суть остается той же. В начале октября дата-центр в Сасове получил серьёзные повреждения в результате атаки беспилотников и полностью остановил работу. Потом были атаки на объекты в Калуге и во Владимире, включая крупный дата-центр, рассчитанный на 3 тысячи сендвич-стоек и 50 МВт. Служба мониторинга Yandex Cloud подтвердила, что дата-центр получил повреждения и полностью прекратил работу. Последствия вышли далеко за пределы облака: перестали работать Алиса, Яндекс Музыка, Телемост, а также больше 80 компонентов платформы - Compute Cloud, Kubernetes, управляемые YDB, PostgreSQL, ClickHouse, MySQL и другое. Проблемы фиксировали в десятках городов, включая Казань, Самару, Владивосток и даже Сербию. Технически это отличается от первых трёх случаев. При шифровальщике или атаке на систему управления инфраструктура физически остаётся на месте, её можно пересобрать и перезапустить из бэкапа (если бэкап по тупости будет не на этом же сервере и не зашифруется вместе со всей инфрой). Когда физически уничтожается площадка с тысячами стоек, вопрос уже не в том, как «починить сервер», а в том, сколько зон доступности у тебя осталось и успели ли сервисы туда переехать. После потери двух зон доступности Yandex Cloud переводил платформу в аварийный режим, а клиенты стояли в очереди на доступ к сервисам и искали резервные площадки - если для крупных компаний с собственной инфраструктурой это была в первую очередь головная боль про архитектуру и переезд, то для небольших контор без своих серверов всё оказалось прозаичнее. Они не могли ни отправить, ни подписать документы. Речь про те самые сервисы электронного документооборота, которые работают поверх облака: у кого-то это 1С-ЭПД через «Калуга Астрал», у кого-то другие цепочки ЭДО. Когда инфраструктура провайдера легла, вход в сервис, отправка и подписание документов перестали работать — либо с ошибкой, либо с бесконечной задержкой. Документы, которые успели уйти в систему, не пропали: они сохранялись в очереди и должны были доставиться после того, как ПО оператора снова запустится, так что повторно отправлять их не требовалось. Но это слабо утешало, если тебе нужно закрыть сделку или сдать отчётность, как это обычно бывает, - вчерашним днем. И особенно сильно авария давила на те компании, у которых не было ни резервного контура, ни второго провайдера, ни готового плана Б: не потому, что их серверы сгорели, а потому, что весь их рабочий процесс целиком висел на чужой инфраструктуре, к которой у них не было доступа, пока очередь не рассосётся.</p>
+                            <br>
+                            <p>Восстановление в таком случае — это не перезапуск пары машин или восстановление из бэкапа, а физическая пересборка сервисов из пепла в оставшихся зонах и переоценка того, что на данный момент требует особенного приоритета в восстановлении работы на оставшихся целыми серверах.</p>
+                            <br>
+                            <p>Если посмотреть на всё это вместе, бросается в глаза одна вещь - отказ почти никогда не приходит оттуда, откуда его ждёшь. У ESTT проблема была не в железе, а в слое управления. У Reg.ru всё было исправно внутри, но подвело электричество вообще на чужом узле. У Yandex Cloud исчезла физическая площадка, которую нельзя починить программно. И даже не всегда отказ технический: в криптоиндустрии совсем недавно был громкий случай с Binance, где, по слухам, доступ к внутренней инфраструктуре получила северо-корейский агент женщина через украденный рабочий ноутбук инженера - то есть точкой отказа оказался человек и его устройство, а не сервер.</p>
+                            <br>
+                            <p>В итоге, на фоне политического или экономического кризисов, нестабильного фона и т.п., положиться нельзя даже на таких мастодонтов, как Binance, Yandex или Reg.ru. Да, это огромные компании с армией инженеров и многоуровневой защитой, но их системы всё равно лажают - то шифровальщик доберётся до слоя управления, то электричество отключат на чужом узле, то ноутбук с доступами унесут. Монументальность не отменяет того, что в основе любой инфраструктуры лежат люди, железо и внешние зависимости, которые могут подвести в самый неподходящий момент.</p>
+                            <br>
+                            <p>Для меня из этих историй следует довольно простая мысль. Бэкапы дисков — это хорошо, но если у тебя один слой управления, одна зона доступности или один узел связи, на котором всё завязано, то любая внешняя авария автоматически становится аварией всего сервиса. И проверять надо не только то, что данные целы, но и то, переживёт ли система потерю того, через что ты к этим данным попадаешь. Разумеется, в связи с такими новостями я введу наконец в работу своё облако. Не как замену большим провайдерам, но как очень хорошую альтернативу, с целью сделать предсказуемую инфраструктуру для друзей - с понятными точками отказа и практически без чужих узлов связи в цепочке. Если заинтересовало, то мониторьте вкладку "сервисы" на моем сайте - там будет указан актуальный статус проекта и кнопка входа. Также на главной странице будут краткие анонсы и новости. На связи.</p>
+                        </div>
+                        <button class="btn-read-more"
+                                aria-expanded="false" aria-controls="article-2-full"
+                                onclick="toggleArticle('article-2')">Читать далее</button>
                     </article>
 
                 </div>
@@ -728,7 +883,14 @@
                     <article class="card">
                         <div class="card-content">
                             <span class="card-date">Приоритет 1</span>
-                            <h3 class="card-title">Настройка почты и защиты Vaultwarden</h3>
+                            <h2 class="card-title">Создание облачного хранилища</h2>
+                            <p class="card-text">Создать облачное хранилище на основе Nextcloud. Предположительный запуск в работу 16.11.2026</p>
+                        </div>
+                    </article>
+                    <article class="card">
+                        <div class="card-content">
+                            <span class="card-date">Приоритет 1</span>
+                            <h2 class="card-title">Настройка почты и защиты Vaultwarden</h2>
                             <p class="card-text">Настроить регистрацию по почте, доделать мелочи с двухфакторкой, настроить SMTP-сервер для приглашений и закрыть доступ посторонним по соображениям безопасности</p>
                         </div>
                     </article>
@@ -741,14 +903,14 @@
                         <article class="card">
                             <div class="card-content">
                                 <span class="card-date">Вне приоритета</span>
-                                <h3 class="card-title">Разработка сайта на Astro</h3>
+                                <h2 class="card-title">Разработка сайта на Astro</h2>
                                 <p class="card-text">Перенос текущего статического сайта на генератор Astro для удобного ведения блога, создания новых страниц и улучшения SEO. + оживить сайт анимациями</p>
                             </div>
                         </article>
                         <article class="card">
                             <div class="card-content">
                                 <span class="card-date">Вне приоритета</span>
-                                <h3 class="card-title">Гибридное зеркало</h3>
+                                <h2 class="card-title">Гибридное зеркало</h2>
                                 <p class="card-text">Добавить кнопку «Если сайт не открывается, используйте это зеркало». Продублировать статус на бесплатном российском хостинге на случай проблем с доступом к Cloudflare.</p>
                             </div>
                         </article>
@@ -762,9 +924,9 @@
                     <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
                     Назад
                 </button>
-                
+
                 <h1>Chronicle Project</h1>
-                <div class="glitch-line"></div>
+                <div class="glitch-line" aria-hidden="true"></div>
                 <p>The world is still being written.</p>
                 <p style="font-size: 0.9rem; margin-top: 20px; color: #333;">В процессе создания силами двух энтузиастов. Ожидайте обновлений</p>
             </section>
@@ -772,15 +934,27 @@
     </div>
 
     <script>
+        // --- КОНСТАНТЫ И СОСТОЯНИЕ ---
+        const sidebar = document.getElementById('sidebar');
+        const menuToggle = document.getElementById('menu-toggle');
+        const pageTitles = {
+            home: 'Последние новости',
+            services: 'Сервисы',
+            articles: 'Статьи',
+            plans: 'Планы и дорожная карта',
+            development: 'В разработке'
+        };
+        let hasNavigatedOnce = false;
+
         // --- ЛОГИКА НАВИГАЦИИ ---
         function navigate(pageId) {
             document.querySelectorAll('.page-section').forEach(el => {
                 el.classList.remove('active');
                 el.style.display = 'none';
             });
-            
+
             const targetPage = document.getElementById('page-' + pageId);
-            if(targetPage) {
+            if (targetPage) {
                 targetPage.classList.add('active');
                 targetPage.style.display = 'block';
             }
@@ -799,28 +973,48 @@
                 themeToggle.style.display = 'block';
             }
 
+            // Перенос фокуса на h1 целевой страницы (не на первом рендере)
+            const h1 = targetPage?.querySelector('h1');
+            if (hasNavigatedOnce && h1) {
+                if (!h1.hasAttribute('tabindex')) h1.setAttribute('tabindex', '-1');
+                h1.focus();
+            }
+            hasNavigatedOnce = true;
+
+            // Обновление заголовка окна
+            document.title = (pageTitles[pageId] || 'Главная') + ' | gellar.tech';
+
             closeMenu();
         }
 
-        // --- ЛОГИКА РАСКРЫТИЯ СТАТЕЙ (с поддержкой URL) ---
+        // --- ЛОГИКА РАСКРЫТИЯ СТАТЕЙ (с поддержкой URL и ARIA) ---
         function toggleArticle(articleId, forceOpen = false) {
             const card = document.getElementById(articleId);
             if (!card) return;
-            
+
+            const isExpanded = card.classList.contains('expanded');
+            const shouldExpand = forceOpen || !isExpanded;
             const btn = card.querySelector('.btn-read-more');
-            
-            if (card.classList.contains('expanded') && !forceOpen) {
+            const header = card.querySelector('.card-header');
+
+            if (shouldExpand) {
+                card.classList.add('expanded');
+                if (btn) {
+                    btn.innerText = 'Скрыть';
+                    btn.setAttribute('aria-expanded', 'true');
+                }
+                if (header) header.setAttribute('aria-expanded', 'true');
+                history.replaceState(null, null, '#' + articleId);
+            } else {
                 card.classList.remove('expanded');
-                btn.innerText = 'Читать далее';
-                // Очищаем хэш, если закрыли статью
-                if(window.location.hash === '#' + articleId) {
+                if (btn) {
+                    btn.innerText = 'Читать далее';
+                    btn.setAttribute('aria-expanded', 'false');
+                }
+                if (header) header.setAttribute('aria-expanded', 'false');
+                if (window.location.hash === '#' + articleId) {
                     history.replaceState(null, null, window.location.pathname);
                 }
-            } else {
-                card.classList.add('expanded');
-                btn.innerText = 'Скрыть';
-                // Обновляем URL без перезагрузки страницы
-                history.replaceState(null, null, '#' + articleId);
             }
         }
 
@@ -839,6 +1033,11 @@
                 iconMoon.style.display = 'none';
                 iconSun.style.display = 'block';
             }
+            const t = document.getElementById('theme-toggle');
+            if (t) {
+                t.setAttribute('aria-pressed', String(isDark));
+                t.setAttribute('aria-label', isDark ? 'Светлая тема' : 'Тёмная тема');
+            }
         }
 
         function toggleTheme() {
@@ -847,28 +1046,70 @@
             localStorage.setItem('theme', isDark ? 'dark' : 'light');
         }
 
-        // Инициализация темы (с учетом системных настроек)
+        // Инициализация темы
         const savedTheme = localStorage.getItem('theme');
         if (savedTheme) {
             applyTheme(savedTheme === 'dark');
         } else {
-            // Если пользователь не выбирал, смотрим на систему
             const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
             applyTheme(prefersDark);
         }
 
-        // --- ЛОГИКА МОБИЛЬНОГО МЕНЮ ---
-        const sidebar = document.getElementById('sidebar');
-        
-        function toggleMenu() {
-            sidebar.classList.toggle('open');
+        // --- МОБИЛЬНОЕ МЕНЮ: открытие/закрытие, ARIA, Esc, focus trap ---
+        function toggleMenu(force) {
+            const isOpen = sidebar.classList.contains('open');
+            const shouldOpen = typeof force === 'boolean' ? force : !isOpen;
+
+            sidebar.classList.toggle('open', shouldOpen);
+            menuToggle.setAttribute('aria-expanded', String(shouldOpen));
+            menuToggle.setAttribute('aria-label', shouldOpen ? 'Закрыть меню' : 'Открыть меню');
+
+            if (shouldOpen) {
+                // Перенос фокуса в первый интерактивный элемент меню
+                const first = sidebar.querySelector('a, button');
+                if (first) first.focus();
+            }
         }
 
         function closeMenu() {
-            if (window.innerWidth <= 650) {
-                sidebar.classList.remove('open');
+            if (window.innerWidth <= 650 && sidebar.classList.contains('open')) {
+                toggleMenu(false);
             }
         }
+
+        // Esc + focus trap внутри sidebar (только на мобиле)
+        sidebar.addEventListener('keydown', (e) => {
+            if (window.innerWidth > 650) return;
+
+            if (e.key === 'Escape') {
+                toggleMenu(false);
+                menuToggle.focus();
+                return;
+            }
+
+            if (e.key === 'Tab') {
+                const focusables = Array.from(sidebar.querySelectorAll('a, button'))
+                    .filter(el => el.offsetParent !== null);
+                if (!focusables.length) return;
+                const first = focusables[0];
+                const last = focusables[focusables.length - 1];
+
+                if (e.shiftKey && document.activeElement === first) {
+                    e.preventDefault();
+                    last.focus();
+                } else if (!e.shiftKey && document.activeElement === last) {
+                    e.preventDefault();
+                    first.focus();
+                }
+            }
+        });
+
+        // Закрывать меню по клику на ссылку на мобиле
+        sidebar.querySelectorAll('.nav-item').forEach(link => {
+            link.addEventListener('click', () => {
+                if (window.innerWidth <= 650) toggleMenu(false);
+            });
+        });
 
         // --- ЛОГИКА ФУНКЦИИ ПИНГА ---
         async function pingService(button, url) {
@@ -879,7 +1120,7 @@
             try {
                 await new Promise(r => setTimeout(r, 800));
                 await fetch(url, { mode: 'no-cors', cache: 'no-cache' });
-                
+
                 button.innerText = 'Доступен';
                 button.style.color = '#10b981';
                 button.style.borderColor = '#10b981';
@@ -900,11 +1141,9 @@
         // --- ОБРАБОТКА URL (ХЭША) ---
         function handleHash() {
             const hash = window.location.hash.replace('#', '') || 'home';
-            
-            // Если хэш указывает на статью
+
             if (hash.startsWith('article-')) {
                 navigate('articles');
-                // Небольшая задержка, чтобы страница успела отрисоваться
                 setTimeout(() => toggleArticle(hash, true), 50);
             } else {
                 navigate(hash);
@@ -912,7 +1151,7 @@
         }
 
         window.addEventListener('hashchange', handleHash);
-        
+
         window.addEventListener('DOMContentLoaded', () => {
             handleHash();
             if (window.innerWidth <= 650) {
@@ -923,7 +1162,11 @@
         window.addEventListener('resize', () => {
             const closeBtn = document.querySelector('.close-menu');
             if (window.innerWidth > 650) {
-                sidebar.classList.remove('open');
+                if (sidebar.classList.contains('open')) {
+                    sidebar.classList.remove('open');
+                    menuToggle.setAttribute('aria-expanded', 'false');
+                    menuToggle.setAttribute('aria-label', 'Открыть меню');
+                }
                 closeBtn.style.display = 'none';
             } else {
                 closeBtn.style.display = 'block';
